@@ -45,11 +45,25 @@ const SighupButton = styled(Button)`
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 30%);
 `;
 
+// Create Object
+const signupInitialValues = {
+  name: "",
+  username: "",
+  password: "",
+};
+
 const Login = () => {
   const [account, toggleAccount] = useState("login");
+  const [signup, setSignup] = useState(signupInitialValues);
 
   const toggleSignup = () => {
     account === "signup" ? toggleAccount("login") : toggleAccount("signup");
+  };
+
+  const onInputChange = (event) => {
+    console.log(event.target.name, event.target.value);
+    setSignup({ ...signup, [event.target.name]: event.target.value });
+    console.log(signup);
   };
 
   return (
@@ -68,9 +82,24 @@ const Login = () => {
           </Wrapper>
         ) : (
           <Wrapper>
-            <TextField variant="standard" label="Enter Your Name" />
-            <TextField variant="standard" label="Enter Username" />
-            <TextField variant="standard" label="Enter Password" />
+            <TextField
+              variant="standard"
+              onChange={(event) => onInputChange(event)}
+              name="name"
+              label="Enter Your Name"
+            />
+            <TextField
+              variant="standard"
+              onChange={(event) => onInputChange(event)}
+              name="username"
+              label="Enter Username"
+            />
+            <TextField
+              variant="standard"
+              onChange={(event) => onInputChange(event)}
+              name="password"
+              label="Enter Password"
+            />
             <LoginButton variant="contained">Signup </LoginButton>
             <Typography style={{ textAlign: "center" }}>OR</Typography>
             <SighupButton onClick={() => toggleSignup()}>
